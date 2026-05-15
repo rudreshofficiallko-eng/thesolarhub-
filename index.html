@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Solar Hub – Clean Energy Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --sun: #F5A623;
+      --sun-deep: #E8841A;
+      --sun-glow: #FFD166;
+      --sky: #0A1628;
+      --sky-mid: #112240;
+      --sky-light: #1E3A5F;
+      --white: #F8F5EF;
+      --grey: #9AABBC;
+      --green: #2ECC71;
+      --card-bg: rgba(17,34,64,0.85);
+      --radius: 12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--sky);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 6%;
+      background: rgba(10,22,40,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(245,166,35,0.15);
+    }
+    .logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--sun); letter-spacing: 2px; }
+    .logo span { color: var(--white); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--grey); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--sun); }
+    .nav-cta {
+      background: var(--sun); color: var(--sky); border: none; padding: 10px 22px;
+      border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.9rem;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--sun-glow); transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: 0.3s; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 6% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(245,166,35,0.12) 0%, transparent 70%),
+                  radial-gradient(ellipse 50% 50% at 20% 80%, rgba(30,58,95,0.6) 0%, transparent 60%);
+    }
+    .sun-orb {
+      position: absolute; right: 8%; top: 18%;
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, #FFD166 0%, #F5A623 40%, rgba(245,166,35,0.1) 70%, transparent 100%);
+      border-radius: 50%;
+      animation: pulse 4s ease-in-out infinite;
+      filter: blur(1px);
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.85; }
+      50% { transform: scale(1.05); opacity: 1; }
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 600px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.3);
+      padding: 6px 14px; border-radius: 20px; font-size: 0.8rem;
+      color: var(--sun); margin-bottom: 24px; font-family: 'Space Mono', monospace;
+    }
+    .hero-badge::before { content: '☀'; font-size: 1rem; }
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 7vw, 5.5rem);
+      line-height: 1;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+    h1 span { color: var(--sun); }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--grey); line-height: 1.7;
+      margin-bottom: 36px; max-width: 480px;
+    }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--sun); color: var(--sky); border: none;
+      padding: 14px 28px; border-radius: 8px; font-weight: 700;
+      font-size: 0.95rem; cursor: pointer; transition: all 0.3s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--sun-glow); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,166,35,0.4); }
+    .btn-outline {
+      background: transparent; color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.3);
+      padding: 14px 28px; border-radius: 8px; font-weight: 600;
+      font-size: 0.95rem; cursor: pointer; transition: all 0.3s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--sun); color: var(--sun); }
+    .hero-stats {
+      display: flex; gap: 40px; margin-top: 56px;
+      padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--sun); }
+    .stat-label { font-size: 0.8rem; color: var(--grey); margin-top: 2px; }
+
+    /* ── SECTIONS COMMON ── */
+    section { padding: 90px 6%; }
+    .section-tag {
+      font-family: 'Space Mono', monospace; font-size: 0.75rem;
+      color: var(--sun); letter-spacing: 3px; text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: 1px; margin-bottom: 16px;
+    }
+    .section-sub { color: var(--grey); max-width: 520px; line-height: 1.7; margin-bottom: 52px; }
+
+    /* ── PRODUCTS ── */
+    #products { background: var(--sky-mid); }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .product-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(245,166,35,0.1);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(245,166,35,0.4);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+    }
+    .product-img {
+      width: 100%; height: 180px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem;
+      background: linear-gradient(135deg, var(--sky-light), var(--sky-mid));
+      position: relative; overflow: hidden;
+    }
+    .product-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 60%, rgba(10,22,40,0.8));
+    }
+    .badge-best {
+      position: absolute; top: 12px; right: 12px; z-index: 2;
+      background: var(--sun); color: var(--sky);
+      font-size: 0.7rem; font-weight: 700; padding: 4px 10px;
+      border-radius: 20px; font-family: 'Space Mono', monospace;
+    }
+    .product-body { padding: 20px; }
+    .product-name { font-weight: 700; font-size: 1.05rem; margin-bottom: 6px; }
+    .product-desc { color: var(--grey); font-size: 0.88rem; line-height: 1.6; margin-bottom: 16px; }
+    .product-meta { display: flex; justify-content: space-between; align-items: center; }
+    .product-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--sun); }
+    .product-watt { font-size: 0.78rem; color: var(--grey); font-family: 'Space Mono', monospace; }
+    .btn-sm {
+      background: transparent; border: 1px solid var(--sun);
+      color: var(--sun); padding: 7px 16px; border-radius: 6px;
+      font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.3s;
+    }
+    .btn-sm:hover { background: var(--sun); color: var(--sky); }
+
+    /* ── CALCULATOR ── */
+    #calculator { background: var(--sky); }
+    .calc-wrapper {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
+    }
+    .calc-form {
+      background: var(--card-bg);
+      border: 1px solid rgba(245,166,35,0.15);
+      border-radius: var(--radius); padding: 36px;
+    }
+    .calc-form h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; margin-bottom: 28px; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-size: 0.85rem; color: var(--grey); margin-bottom: 8px; font-weight: 500; }
+    input[type=number], input[type=range], select {
+      width: 100%; background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white); padding: 12px 14px;
+      border-radius: 8px; font-size: 0.95rem; font-family: 'DM Sans', sans-serif;
+      outline: none; transition: border-color 0.3s;
+    }
+    input[type=number]:focus, select:focus { border-color: var(--sun); }
+    select option { background: var(--sky-mid); }
+    input[type=range] { padding: 6px 0; cursor: pointer; accent-color: var(--sun); }
+    .range-val { font-family: 'Space Mono', monospace; color: var(--sun); font-size: 0.85rem; margin-top: 4px; }
+    .calc-btn {
+      width: 100%; background: var(--sun); color: var(--sky);
+      border: none; padding: 14px; border-radius: 8px;
+      font-weight: 700; font-size: 1rem; cursor: pointer;
+      margin-top: 8px; transition: all 0.3s;
+    }
+    .calc-btn:hover { background: var(--sun-glow); transform: translateY(-1px); }
+    .calc-result {
+      background: var(--sky-mid);
+      border: 1px solid rgba(245,166,35,0.2);
+      border-radius: var(--radius); padding: 36px;
+    }
+    .calc-result h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; margin-bottom: 28px; color: var(--sun); }
+    .result-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .result-item:last-child { border-bottom: none; }
+    .result-label { color: var(--grey); font-size: 0.9rem; }
+    .result-val { font-family: 'Space Mono', monospace; font-size: 1rem; color: var(--white); font-weight: 700; }
+    .result-val.highlight { color: var(--sun); font-size: 1.2rem; }
+    .result-val.green { color: var(--green); }
+    .calc-tip {
+      margin-top: 20px; padding: 14px;
+      background: rgba(46,204,113,0.08); border: 1px solid rgba(46,204,113,0.2);
+      border-radius: 8px; font-size: 0.85rem; color: #7EEAAA; line-height: 1.6;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--sky-mid); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .about-visual {
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .about-circle {
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,166,35,0.2), rgba(10,22,40,0.5));
+      border: 2px solid rgba(245,166,35,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 6rem; position: relative; animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-16px); }
+    }
+    .about-ring {
+      position: absolute; width: 360px; height: 360px;
+      border-radius: 50%; border: 1px dashed rgba(245,166,35,0.2);
+      animation: spin 20s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .about-dot {
+      position: absolute; width: 10px; height: 10px;
+      background: var(--sun); border-radius: 50%; top: 10px; left: 50%;
+    }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-top: 28px; }
+    .feature-list li {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 16px; background: rgba(245,166,35,0.04);
+      border: 1px solid rgba(245,166,35,0.08); border-radius: 8px;
+    }
+    .feat-icon { font-size: 1.3rem; margin-top: 2px; flex-shrink: 0; }
+    .feat-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
+    .feat-desc { color: var(--grey); font-size: 0.85rem; line-height: 1.5; }
+
+    /* ── QUOTE ── */
+    #quote { background: var(--sky); }
+    .quote-wrap {
+      max-width: 700px; margin: 0 auto;
+      background: var(--card-bg);
+      border: 1px solid rgba(245,166,35,0.15);
+      border-radius: var(--radius); padding: 48px;
+    }
+    .quote-wrap h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; margin-bottom: 8px; }
+    .quote-wrap p { color: var(--grey); margin-bottom: 32px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    input[type=text], input[type=email], input[type=tel], textarea {
+      width: 100%; background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white); padding: 12px 14px;
+      border-radius: 8px; font-size: 0.95rem; font-family: 'DM Sans', sans-serif;
+      outline: none; transition: border-color 0.3s; margin-bottom: 16px;
+    }
+    input[type=text]:focus, input[type=email]:focus, input[type=tel]:focus, textarea:focus { border-color: var(--sun); }
+    textarea { resize: vertical; min-height: 110px; }
+    .submit-btn {
+      width: 100%; background: var(--sun); color: var(--sky);
+      border: none; padding: 15px; border-radius: 8px;
+      font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.3s;
+    }
+    .submit-btn:hover { background: var(--sun-glow); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(245,166,35,0.3); }
+    .success-msg {
+      display: none; text-align: center; padding: 24px;
+      background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.3);
+      border-radius: 8px; color: var(--green); font-weight: 600; margin-top: 16px;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--sky-mid); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+    .contact-info h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; margin-bottom: 20px; }
+    .contact-info p { color: var(--grey); line-height: 1.7; margin-bottom: 32px; }
+    .contact-item { display: flex; gap: 14px; align-items: center; margin-bottom: 20px; }
+    .c-icon {
+      width: 44px; height: 44px; border-radius: 8px;
+      background: rgba(245,166,35,0.1); border: 1px solid rgba(245,166,35,0.2);
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    .c-label { font-size: 0.78rem; color: var(--grey); }
+    .c-val { font-weight: 600; font-size: 0.95rem; }
+    .contact-form input[type=text],
+    .contact-form input[type=email],
+    .contact-form textarea { margin-bottom: 14px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060F1E;
+      padding: 40px 6% 24px;
+      border-top: 1px solid rgba(245,166,35,0.1);
+    }
+    .footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-bottom: 28px; }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--sun); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--grey); text-decoration: none; font-size: 0.88rem; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--sun); }
+    .footer-bottom { text-align: center; color: var(--grey); font-size: 0.82rem; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu {
+        display: none; position: fixed; top: 70px; left: 0; right: 0;
+        background: rgba(10,22,40,0.98); padding: 24px 6%;
+        flex-direction: column; gap: 20px; z-index: 99;
+      }
+      .mobile-menu.open { display: flex; }
+      .mobile-menu a { color: var(--white); text-decoration: none; font-size: 1rem; font-weight: 500; }
+      .sun-orb { width: 200px; height: 200px; right: -40px; }
+      .hero-stats { gap: 24px; flex-wrap: wrap; }
+      .calc-wrapper, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .about-visual { display: none; }
+      .footer-top { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">THE <span>SOLAR</span> HUB</div>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#calculator">Calculator</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('quote').scrollIntoView({behavior:'smooth'})">Get Free Quote</button>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#products" onclick="toggleMenu()">Products</a>
+  <a href="#calculator" onclick="toggleMenu()">Calculator</a>
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#quote" onclick="toggleMenu()">Get Quote</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="sun-orb"></div>
+  <div class="hero-content">
+    <div class="hero-badge">India's Trusted Solar Vendor</div>
+    <h1>Power Your<br/>Future With <span>Solar</span><br/>Energy</h1>
+    <p class="hero-sub">Premium solar panel solutions for homes and businesses. Save up to 90% on electricity bills while contributing to a cleaner India.</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">Explore Products</a>
+      <a href="#calculator" class="btn-outline">Calculate Savings</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">500+</div><div class="stat-label">Installations Done</div></div>
+      <div><div class="stat-num">90%</div><div class="stat-label">Bill Reduction</div></div>
+      <div><div class="stat-num">25YR</div><div class="stat-label">Panel Warranty</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-tag">Our Products</div>
+  <h2 class="section-title">Solar Panel Range</h2>
+  <p class="section-sub">From residential rooftops to large commercial setups — we have the right panel for every need and budget.</p>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img">🌞
+        <span class="badge-best">BESTSELLER</span>
+      </div>
+      <div class="product-body">
+        <div class="product-name">Mono PERC 400W</div>
+        <div class="product-desc">High-efficiency monocrystalline panel ideal for residential use. Best performance in low-light conditions.</div>
+        <div class="product-meta">
+          <div>
+            <div class="product-price">₹18,500</div>
+            <div class="product-watt">400W • 21.5% Efficiency</div>
+          </div>
+          <button class="btn-sm" onclick="scrollToQuote()">Get Quote</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">⚡</div>
+      <div class="product-body">
+        <div class="product-name">Bifacial 550W</div>
+        <div class="product-desc">Dual-sided absorption for maximum energy generation. Perfect for commercial rooftops and ground-mount systems.</div>
+        <div class="product-meta">
+          <div>
+            <div class="product-price">₹26,000</div>
+            <div class="product-watt">550W • 22.8% Efficiency</div>
+          </div>
+          <button class="btn-sm" onclick="scrollToQuote()">Get Quote</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">🏠</div>
+      <div class="product-body">
+        <div class="product-name">Poly 330W (Budget)</div>
+        <div class="product-desc">Cost-effective polycrystalline panel for budget-conscious buyers. Reliable performance for 25+ years.</div>
+        <div class="product-meta">
+          <div>
+            <div class="product-price">₹12,000</div>
+            <div class="product-watt">330W • 18.2% Efficiency</div>
+          </div>
+          <button class="btn-sm" onclick="scrollToQuote()">Get Quote</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">🏭
+        <span class="badge-best">INDUSTRIAL</span>
+      </div>
+      <div class="product-body">
+        <div class="product-name">HJT 700W</div>
+        <div class="product-desc">Ultra-high power heterojunction technology for large industrial plants and solar farms. Top-tier efficiency.</div>
+        <div class="product-meta">
+          <div>
+            <div class="product-price">₹38,000</div>
+            <div class="product-watt">700W • 24.1% Efficiency</div>
+          </div>
+          <button class="btn-sm" onclick="scrollToQuote()">Get Quote</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">🔋</div>
+      <div class="product-body">
+        <div class="product-name">Solar + Battery Kit</div>
+        <div class="product-desc">Complete off-grid system with 400W panel + 5kWh lithium battery storage. Power 24/7 even without sunlight.</div>
+        <div class="product-meta">
+          <div>
+            <div class="product-price">₹85,000</div>
+            <div class="product-watt">Full Kit • Off-Grid Ready</div>
+          </div>
+          <button class="btn-sm" onclick="scrollToQuote()">Get Quote</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">🌾</div>
+      <div class="product-body">
+        <div class="product-name">Agri Solar Pump Kit</div>
+        <div class="product-desc">Specially designed for farmers. Solar-powered water pump system. Subsidy eligible under PM-KUSUM scheme.</div>
+        <div class="product-meta">
+          <div>
+            <div class="product-price">₹65,000</div>
+            <div class="product-watt">2HP Pump • Subsidy Eligible</div>
+          </div>
+          <button class="btn-sm" onclick="scrollToQuote()">Get Quote</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section id="calculator">
+  <div class="section-tag">Solar Calculator</div>
+  <h2 class="section-title">Calculate Your Savings</h2>
+  <p class="section-sub">Enter your electricity details and find out how much you can save by switching to solar.</p>
+  <div class="calc-wrapper">
+    <div class="calc-form">
+      <h3>Your Energy Details</h3>
+      <div class="form-group">
+        <label>Monthly Electricity Bill (₹)</label>
+        <input type="number" id="monthlyBill" placeholder="e.g. 3000" value="3000"/>
+      </div>
+      <div class="form-group">
+        <label>Electricity Rate (₹ per unit)</label>
+        <input type="number" id="rate" placeholder="e.g. 7" value="7" step="0.5"/>
+      </div>
+      <div class="form-group">
+        <label>Roof Area Available (sq ft): <span class="range-val" id="roofVal">500</span></label>
+        <input type="range" id="roofArea" min="100" max="2000" value="500" step="50" oninput="document.getElementById('roofVal').textContent=this.value"/>
+      </div>
+      <div class="form-group">
+        <label>State / Location</label>
+        <select id="stateSelect">
+          <option value="5.5">Uttar Pradesh (5.5 hr/day)</option>
+          <option value="6.0">Rajasthan (6.0 hr/day)</option>
+          <option value="5.8">Maharashtra (5.8 hr/day)</option>
+          <option value="5.2">West Bengal (5.2 hr/day)</option>
+          <option value="6.2">Gujarat (6.2 hr/day)</option>
+          <option value="5.0">Kerala (5.0 hr/day)</option>
+          <option value="5.7">Karnataka (5.7 hr/day)</option>
+          <option value="5.9">Madhya Pradesh (5.9 hr/day)</option>
+        </select>
+      </div>
+      <button class="calc-btn" onclick="calculateSolar()">⚡ Calculate Now</button>
+    </div>
+    <div class="calc-result" id="calcResult">
+      <h3>Your Solar Report</h3>
+      <div class="result-item">
+        <span class="result-label">Recommended System Size</span>
+        <span class="result-val highlight" id="res-size">— kW</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Number of Panels Needed</span>
+        <span class="result-val" id="res-panels">—</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Monthly Energy Generation</span>
+        <span class="result-val" id="res-units">— units</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Monthly Savings</span>
+        <span class="result-val green" id="res-savings">₹ —</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Estimated System Cost</span>
+        <span class="result-val" id="res-cost">₹ —</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Payback Period</span>
+        <span class="result-val" id="res-payback">— years</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">25-Year Total Savings</span>
+        <span class="result-val green" id="res-total">₹ —</span>
+      </div>
+      <div class="calc-tip" id="calcTip">👆 Fill in your details and click Calculate to see your personalised solar savings report.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-visual">
+      <div class="about-ring"><div class="about-dot"></div></div>
+      <div class="about-circle">☀️</div>
+    </div>
+    <div>
+      <div class="section-tag">About Us</div>
+      <h2 class="section-title">Why Choose The Solar Hub?</h2>
+      <p style="color:var(--grey);line-height:1.7;margin-bottom:8px;">We are a dedicated solar energy company committed to bringing affordable, clean power to every Indian home and business. Our certified experts handle everything from consultation to installation and after-sales support.</p>
+      <ul class="feature-list">
+        <li>
+          <div class="feat-icon">🏅</div>
+          <div><div class="feat-title">Certified & Trusted</div><div class="feat-desc">MNRE approved vendor with ISO-certified solar panels from top brands.</div></div>
+        </li>
+        <li>
+          <div class="feat-icon">🔧</div>
+          <div><div class="feat-title">End-to-End Installation</div><div class="feat-desc">Our team handles site survey, panel mounting, wiring, and government approvals.</div></div>
+        </li>
+        <li>
+          <div class="feat-icon">💰</div>
+          <div><div class="feat-title">Subsidy Assistance</div><div class="feat-desc">We help you apply for PM Surya Ghar and state subsidy schemes to reduce costs.</div></div>
+        </li>
+        <li>
+          <div class="feat-icon">📞</div>
+          <div><div class="feat-title">5-Year AMC Support</div><div class="feat-desc">Annual maintenance contract with 24/7 support for peace of mind.</div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE FORM -->
+<section id="quote">
+  <div class="section-tag">Free Quote</div>
+  <h2 class="section-title" style="text-align:center">Request a Free Quote</h2>
+  <div class="quote-wrap">
+    <h3>Get Your Custom Solar Plan</h3>
+    <p>Fill in your details and our solar expert will contact you within 24 hours with a customised proposal.</p>
+    <div class="form-row">
+      <input type="text" id="q-name" placeholder="Your Full Name" />
+      <input type="tel" id="q-phone" placeholder="Phone Number" />
+    </div>
+    <input type="email" id="q-email" placeholder="Email Address" style="width:100%" />
+    <div class="form-row">
+      <select id="q-type" style="margin-bottom:16px">
+        <option value="">Property Type</option>
+        <option>Residential Home</option>
+        <option>Commercial Building</option>
+        <option>Industrial Plant</option>
+        <option>Agricultural / Farm</option>
+      </select>
+      <select id="q-budget" style="margin-bottom:16px">
+        <option value="">Budget Range</option>
+        <option>Under ₹1 Lakh</option>
+        <option>₹1–3 Lakh</option>
+        <option>₹3–10 Lakh</option>
+        <option>Above ₹10 Lakh</option>
+      </select>
+    </div>
+    <textarea id="q-msg" placeholder="Tell us about your electricity usage or any specific requirements..."></textarea>
+    <button class="submit-btn" onclick="submitQuote()">🌞 Request Free Quote</button>
+    <div class="success-msg" id="quoteSuccess">✅ Thank you! Our solar expert will contact you within 24 hours.</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-tag">Contact</div>
+  <h2 class="section-title">Get In Touch</h2>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>We're Here to Help</h3>
+      <p>Have questions about solar panels, installation, or subsidies? Our team is ready to assist you every step of the way.</p>
+      <div class="contact-item">
+        <div class="c-icon">📍</div>
+        <div><div class="c-label">Address</div><div class="c-val">The Solar Hub, Main Road, Your City, UP</div></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">📞</div>
+        <div><div class="c-label">Phone</div><div class="c-val">+91 98765 43210</div></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">✉️</div>
+        <div><div class="c-label">Email</div><div class="c-val">info@thesolarhub.in</div></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">🕐</div>
+        <div><div class="c-label">Working Hours</div><div class="c-val">Mon–Sat: 9 AM – 7 PM</div></div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <input type="text" id="c-name" placeholder="Your Name" />
+      <input type="email" id="c-email" placeholder="Email Address" />
+      <input type="tel" id="c-phone" placeholder="Phone Number" />
+      <textarea id="c-msg" placeholder="Your Message..."></textarea>
+      <button class="submit-btn" onclick="submitContact()">Send Message</button>
+      <div class="success-msg" id="contactSuccess">✅ Message received! We'll get back to you soon.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-logo">THE SOLAR HUB ☀️</div>
+    <div class="footer-links">
+      <a href="#products">Products</a>
+      <a href="#calculator">Calculator</a>
+      <a href="#about">About</a>
+      <a href="#quote">Quote</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2024 The Solar Hub. All rights reserved. | Powering India with Clean Energy 🌱
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function scrollToQuote() {
+    document.getElementById('quote').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function calculateSolar() {
+    const bill = parseFloat(document.getElementById('monthlyBill').value) || 3000;
+    const rate = parseFloat(document.getElementById('rate').value) || 7;
+    const roof = parseFloat(document.getElementById('roofArea').value) || 500;
+    const sunHours = parseFloat(document.getElementById('stateSelect').value) || 5.5;
+
+    const monthlyUnits = bill / rate;
+    const systemKW = Math.ceil((monthlyUnits / (sunHours * 30)) * 10) / 10;
+    const panels = Math.ceil(systemKW * 1000 / 400);
+    const monthlyGen = Math.round(systemKW * sunHours * 30);
+    const monthlySavings = Math.round(monthlyGen * rate);
+    const systemCost = Math.round(systemKW * 55000);
+    const payback = (systemCost / (monthlySavings * 12)).toFixed(1);
+    const total25yr = Math.round((monthlySavings * 12 * 25) - systemCost);
+
+    document.getElementById('res-size').textContent = systemKW.toFixed(1) + ' kW';
+    document.getElementById('res-panels').textContent = panels + ' panels (400W each)';
+    document.getElementById('res-units').textContent = monthlyGen + ' units/month';
+    document.getElementById('res-savings').textContent = '₹ ' + monthlySavings.toLocaleString('en-IN') + '/month';
+    document.getElementById('res-cost').textContent = '₹ ' + systemCost.toLocaleString('en-IN');
+    document.getElementById('res-payback').textContent = payback + ' years';
+    document.getElementById('res-total').textContent = '₹ ' + total25yr.toLocaleString('en-IN');
+    document.getElementById('calcTip').textContent = '💡 Based on current rates, you recover your investment in ' + payback + ' years and save ₹' + total25yr.toLocaleString('en-IN') + ' over 25 years!';
+  }
+
+  function submitQuote() {
+    const name = document.getElementById('q-name').value.trim();
+    const phone = document.getElementById('q-phone').value.trim();
+    if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
+    document.getElementById('quoteSuccess').style.display = 'block';
+    ['q-name','q-phone','q-email','q-msg'].forEach(id => document.getElementById(id).value = '');
+  }
+
+  function submitContact() {
+    const name = document.getElementById('c-name').value.trim();
+    const msg = document.getElementById('c-msg').value.trim();
+    if (!name || !msg) { alert('Please fill in name and message.'); return; }
+    document.getElementById('contactSuccess').style.display = 'block';
+    ['c-name','c-email','c-phone','c-msg'].forEach(id => document.getElementById(id).value = '');
+  }
+
+  // Animate on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.product-card, .feature-list li, .contact-item').forEach(el => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
